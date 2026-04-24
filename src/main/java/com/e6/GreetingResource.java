@@ -1,4 +1,4 @@
-package com.e5;
+package com.e6;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
