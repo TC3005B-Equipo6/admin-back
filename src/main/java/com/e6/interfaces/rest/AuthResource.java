@@ -1,6 +1,7 @@
 package com.e6.interfaces.rest;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -19,7 +20,6 @@ public class AuthResource {
                 return Response.status(401).entity("No token").build();
             }
 
-           // String token = authHeader.replace("Bearer ", "");
             String token = authHeader.substring(7).trim();
 
             FirebaseToken decodedToken =
@@ -27,13 +27,7 @@ public class AuthResource {
 
             return Response.ok("UID: " + decodedToken.getUid()).build();
 
-       /* } catch (Exception e) {
-            return Response.status(401).entity("Token inválido").build();
-        }*/
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            
+        } catch (FirebaseAuthException e) {
             return Response.status(401)
                 .entity("Token inválido: " + e.getMessage())
                 .build();
