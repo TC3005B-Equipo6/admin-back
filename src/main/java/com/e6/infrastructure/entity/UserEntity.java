@@ -15,11 +15,14 @@ public class UserEntity {
     @Column(length = 36)
     private UUID id;
 
-    @Column(nullable = false, length = 100)
-    private String name;
+    @Column(nullable = false, length = 50)
+    private String firstName;
 
-    @Column(nullable = false, length = 100)
-    private String surname;
+    @Column(nullable = false, length = 50)
+    private String paternalSurname;
+
+    @Column(nullable = true, length = 50)
+    private String maternalSurname;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -44,20 +47,28 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPaternalSurname() {
+        return paternalSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPaternalSurname(String paternalSurname) {
+        this.paternalSurname = paternalSurname;
+    }
+
+    public String getMaternalSurname() {
+        return maternalSurname;
+    }
+
+    public void setMaternalSurname(String maternalSurname) {
+        this.maternalSurname = maternalSurname;
     }
 
     public String getEmail() {
