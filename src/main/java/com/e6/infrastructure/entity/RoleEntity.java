@@ -14,20 +14,18 @@ import java.util.UUID;
 public class RoleEntity {
 
     @Id
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(length = 36)
-    private UUID id;
+    private Integer id;
 
     @Column(nullable = false, length = 50)
     private String name;
 
     public RoleEntity() {}
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
