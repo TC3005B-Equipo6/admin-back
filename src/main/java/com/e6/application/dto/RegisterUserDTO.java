@@ -34,7 +34,7 @@ public class RegisterUserDTO {
         this.roleId = roleId;
     }
 
-    public RegisterUserDTO() {};
+    public RegisterUserDTO() {}
 
     public String getFirstName() {
         return firstName;
