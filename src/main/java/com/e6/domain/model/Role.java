@@ -1,23 +1,25 @@
 package com.e6.domain.model;
 
-import java.util.UUID;
-
 public class Role {
-    private UUID id;
+    private int id;
     private String name;
 
     public Role () {}
 
-    public Role(UUID id, String name) {
+    public Role (int id){
+        this.id = id;
+    }
+
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
