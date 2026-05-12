@@ -4,20 +4,21 @@ import java.util.UUID;
 
 public class User {
     private UUID id;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String paternalSurname;
+    private String maternalSurname;
     private Role role;
     private String email;
     private boolean active;
     private String firebaseUuid;
 
-    public User(){
-    }
+    public User() {}
 
-    public User(UUID id, String name, String surname, Role role, String email, boolean active, String firebaseUuid) {
+    public User(UUID id, String firstName, String paternalSurname, String maternalSurname, Role role, String email, boolean active, String firebaseUuid) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.firstName = firstName;
+        this.paternalSurname = paternalSurname;
+        this.maternalSurname = maternalSurname;
         this.role = role;
         this.email = email;
         this.active = active;
@@ -64,19 +65,27 @@ public class User {
         this.firebaseUuid = firebaseUuid;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPaternalSurname() {
+        return paternalSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPaternalSurname(String paternalSurname) {
+        this.paternalSurname = paternalSurname;
+    }
+
+    public String getMaternalSurname() {
+        return maternalSurname;
+    }
+
+    public void setMaternalSurname(String maternalSurname) {
+        this.maternalSurname = maternalSurname;
     }
 }
