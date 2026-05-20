@@ -43,5 +43,4 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
-/src/main/resources/application.properties
-/src/main/resources/firebase-config.json
+/src/main/resources/firebase-service-account.json
