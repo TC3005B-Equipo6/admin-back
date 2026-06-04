@@ -2,11 +2,14 @@ package com.e6.interfaces.rest;
 
 import com.e6.application.constant.UserConstants;
 import com.e6.application.dto.RegisterUserDTO;
+import com.e6.application.dto.UpdateUserDTO;
 import com.e6.application.usecase.user.DeleteUserUseCase;
 import com.e6.application.usecase.user.GetUserByIdUseCase;
 import com.e6.application.usecase.user.GetUsersByRoleUseCase;
 import com.e6.application.usecase.user.RegisterUserUseCase;
+import com.e6.application.usecase.user.UpdateUserUseCase;
 import com.e6.domain.exception.UserAlreadyExistsException;
+
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -24,13 +27,21 @@ public class UserResource {
     private final GetUserByIdUseCase getUserByIdUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
     private final GetUsersByRoleUseCase getUsersByRoleUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
 
     @Inject
-    public UserResource(RegisterUserUseCase registerUserUseCase, GetUserByIdUseCase getUserByIdUseCase, DeleteUserUseCase deleteUserUseCase, GetUsersByRoleUseCase getUsersByRoleUseCase) {
+    public UserResource(
+            RegisterUserUseCase registerUserUseCase,
+            GetUserByIdUseCase getUserByIdUseCase,
+            DeleteUserUseCase deleteUserUseCase,
+            GetUsersByRoleUseCase getUsersByRoleUseCase,
+            UpdateUserUseCase updateUserUseCase
+    ) {
         this.registerUserUseCase = registerUserUseCase;
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
         this.getUsersByRoleUseCase = getUsersByRoleUseCase;
+        this.updateUserUseCase = updateUserUseCase;
     }
 
     @POST
@@ -45,7 +56,7 @@ public class UserResource {
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") UUID id) {
-        try{
+        try {
             return Response.ok(getUserByIdUseCase.execute(id)).build();
         } catch (Exception e) {
             return Response.status(404).entity(e.getMessage()).build();
@@ -53,7 +64,7 @@ public class UserResource {
     }
 
     @GET
-    public Response getUsers(){
+    public Response getUsers() {
         try {
             return Response.ok(getUsersByRoleUseCase.execute(UserConstants.ROLE_USER_ID)).build();
         } catch (Exception e) {
@@ -63,7 +74,7 @@ public class UserResource {
 
     @GET
     @Path("/admin")
-    public Response GetAdmins(){
+    public Response getAdmins() {
         try {
             return Response.ok(getUsersByRoleUseCase.execute(UserConstants.ROLE_ADMIN_ID)).build();
         } catch (Exception e) {
@@ -73,12 +84,29 @@ public class UserResource {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteUser(@PathParam("id") UUID id){
+    public Response deleteUser(@PathParam("id") UUID id) {
         try {
             deleteUserUseCase.execute(id);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(404).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateUser(
+            @PathParam("id") UUID id,
+            @Valid UpdateUserDTO updateUserDTO
+    ) {
+        try {
+            return Response.ok(
+                    updateUserUseCase.execute(id, updateUserDTO)
+            ).build();
+        } catch (Exception e) {
+            return Response.status(404)
+                    .entity(e.getMessage())
+                    .build();
         }
     }
 }
