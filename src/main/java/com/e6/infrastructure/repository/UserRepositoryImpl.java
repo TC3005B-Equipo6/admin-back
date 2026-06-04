@@ -1,5 +1,6 @@
 package com.e6.infrastructure.repository;
 
+import com.e6.application.dto.UpdateUserDTO;
 import com.e6.domain.exception.UserAlreadyExistsException;
 import com.e6.domain.model.Role;
 import com.e6.domain.model.User;
@@ -81,4 +82,23 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase
             delete(userEntity);
         }
     }
+
+    @Transactional
+    public User updateUser(UUID id, UpdateUserDTO dto) {
+    UserEntity userEntity = findById(id);
+
+    if (userEntity == null) {
+        throw new RuntimeException("Usuario no encontrado");
+    }
+
+    userEntity.setFirstName(dto.getFirstName());
+    userEntity.setPaternalSurname(dto.getPaternalSurname());
+    userEntity.setMaternalSurname(dto.getMaternalSurname());
+    userEntity.setEmail(dto.getEmail());
+    userEntity.setActive(dto.isActive());
+
+    return UserMapper.toDomain(userEntity);
+     }
+
+
 }
