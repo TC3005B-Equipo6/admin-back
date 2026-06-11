@@ -10,4 +10,5 @@ public interface UserRepository {
     User findUserById(UUID id);
     List<User> findUserByRole(int roleId);
     void deleteUserById(UUID id);
+    User findByEmail(String email);
 }

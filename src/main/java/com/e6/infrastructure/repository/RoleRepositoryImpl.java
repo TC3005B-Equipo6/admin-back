@@ -41,4 +41,6 @@ public class RoleRepositoryImpl implements RoleRepository, PanacheRepositoryBase
     public void deleteRoleById(Integer id) {
 
     }
+
+    
 }

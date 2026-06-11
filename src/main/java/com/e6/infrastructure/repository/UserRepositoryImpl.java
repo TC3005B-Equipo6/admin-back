@@ -74,6 +74,8 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase
                 .collect(Collectors.toList());
     }
 
+
+    
     @Override
     @Transactional
     public void deleteUserById(UUID id){
@@ -82,6 +84,20 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepositoryBase
             delete(userEntity);
         }
     }
+
+    @Override
+public User findByEmail(String email) {
+    UserEntity userEntity = find("email", email).firstResult();
+
+    if (userEntity == null) {
+        return null;
+    }
+
+    return UserMapper.toDomain(userEntity);
+}
+
+
+
 
     @Transactional
     public User updateUser(UUID id, UpdateUserDTO dto) {
